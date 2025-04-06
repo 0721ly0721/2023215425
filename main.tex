@@ -1,0 +1,169 @@
+%!TeX program = xelatex
+% 写自己的报告，建议直接从main.tex基础之上修改，如何使用参考guide.tex。
+\documentclass[12pt,hyperref,a4paper,twoside,UTF8]{ctexart}
+\usepackage{HFUTReport}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{setspace}
+\setstretch{1.5} % 设置全局行距为1.5倍
+
+\usepackage{enumitem} % 载入enumitem包以便自定义列表环境
+\setlist[itemize]{itemsep=0pt, parsep=0pt} % 设置itemize环境的项目间距和段落间距
+
+\setmainfont{Times New Roman} % 英文正文为Times New Roman
+
+%封面页设置
+{   
+    %标题
+    \title{ 
+        \vspace{1cm}
+        \heiti \Huge \textbf{《嵌入式系统及应用》课程} \par
+        \vspace{1cm} 
+        \heiti \Large {\underline{综合实验报告}}    
+        \vspace{3cm}
+    }
+
+    \author{
+        \vspace{0.5cm}
+        \kaishu\Large 学院\ \dlmu[9cm]{仪器科学与光电工程学院} \\ %学院
+        \vspace{0.5cm}
+        \kaishu\Large 专业\ \dlmu[9cm]{光电信息工程} \\ %班级
+        \vspace{0.5cm}
+        \kaishu\Large 学号\ \dlmu[9cm]{2024XXXXXX} \qquad  \\ %学号
+        \vspace{0.5cm}
+        \kaishu\Large 姓名\ \dlmu[9cm]{XXX} \qquad \\ %姓名 
+    }
+        
+    \date{\today} % 默认为今天的日期，可以注释掉不显示日期
+}
+%%------------------------document环境开始------------------------%%
+\begin{document}
+
+%%-----------------------封面--------------------%%
+\cover
+\thispagestyle{empty} % 首页不显示页码
+%%------------------摘要-------------%%
+\newpage
+\begin{abstract}
+
+本实验通过理论与实践结合，使学生掌握STM32F103单片机的综合开发技能，理解嵌入式系统的核心设计理念，并为后续复杂项目（如物联网终端、工业控制器）的开发奠定坚实基础。
+
+\end{abstract}
+
+\thispagestyle{empty} % 首页不显示页码
+
+%%--------------------------目录页------------------------%%
+\newpage
+\tableofcontents
+% \thispagestyle{empty} % 目录不显示页码
+
+%%------------------------正文页从这里开始-------------------%
+\newpage
+\setcounter{page}{1} % 让页码从正文开始编号
+
+%%可选择这里也放一个标题
+%\begin{center}
+%    \title{ \Huge \textbf{{标题}}}
+%\end{center}
+
+\section{实验目的}
+
+
+\begin{enumerate}[label=\roman*.]
+
+
+\item \textbf{掌握STM32F103核心外设的应用}   - 通过实际操作**GPIO、ADC、定时器、中断、串口通信**等模块，深入理解单片机外设的工作原理及配置方法，培养对硬件资源的直接控制能力。
+
+\item \textbf{培养嵌入式系统全流程开发能力}   - 从**硬件连接**（传感器、LED、按键）到**软件编程**（驱动开发、协议解析），完成完整的嵌入式系统设计流程，提升系统级工程思维。
+
+\item \textbf{学习多模块协同与实时任务管理}    - 实现**ADC采集、PWM输出、串口通信、中断响应**等任务的协同工作，掌握基于中断和定时器的实时系统设计方法。
+
+\item \textbf{提升调试与问题解决能力}    - 在硬件调试（如ADC噪声抑制、PWM波形验证）和软件调试（如中断冲突、内存溢出）中，积累嵌入式系统调试经验，掌握逻辑分析仪、串口调试工具的使用方法。
+
+\item \textbf{培养工程文档编写与团队协作意识}    - 通过撰写实验报告、记录测试用例、维护代码注释，规范技术文档编写习惯；通过差异化任务分工，理解团队协作在复杂项目中的重要性。
+
+\end{enumerate}
+
+本实验旨在通过理论与实践结合，使学生掌握STM32F103单片机的综合开发技能，理解嵌入式系统的核心设计理念，并为后续复杂项目（如物联网终端、工业控制器）的开发奠定坚实基础。
+
+
+
+\section{实验原理}
+
+需要整个系统的实验原理，画原理框图，流程图，各个模块的原理。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width =.3\textwidth]{figures/hfutlogo.png}
+    \caption{此处可以插入流程图}
+    \label{Library}
+\end{figure}
+
+
+\section{实验内容}
+
+需要整个系统的实验原理，画原理框图，流程图，各个模块的原理。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
+\section{实验步骤}
+\subsection{步骤1：插入高亮代码块}
+利用\verb|lstlisting| 配置
+\begin{lstlisting}[style=CPP, title="c++代码"]
+#include <iostream>
+#include <array>
+int main()
+{
+    constexpr int MAX = 100;
+    std::array<int, MAX> arr;
+}  
+\end{lstlisting}
+
+
+这部分需要详细填写实验步骤。可以参考实验指导书。原则上字数不少于500
+字。内容可写设计思路、设计过程，图文并茂为佳。
+
+
+
+
+
+直接使用\verb|\cite{}|即可\cite{DBLP:conf/nips/VaswaniSPUJGKP17}。
+\subsection{步骤2：文献引用}
+例如：
+
+
+   \textit{ 此处引用了文献}
+   \cite{DBLP:conf/nips/VaswaniSPUJGKP17}。此处引用了文献\cite{DBLP:conf/nips/VaswaniSPUJGKP17}
+
+
+引用过的文献会自动出现在参考文献中。
+
+\section{实验结果与分析}
+ (自行填写。每个实验项目的格式范例：
+1） 关键流程分析
+2） 实验结果
+文字描述或者截图（所作的图）。必须有截图，截图数量不少于2幅。
+3） 结果分析
+对每一个结果，必须有相应分析，如解释图表反映的内涵、缘由，是否达到
+预期目标，是否可改进等等。)
+\section{总结及心得体会}
+
+ (自行填写。必须写点什么，不能写“无”）
+\section{对本实验过程及方法、手段的改进建议}
+
+
+ (自行填写。必须写点什么，不能写“无”)
+（注意：5，6部分能反映出实验的态度、方法和效果，应重点阐述，字数勿
+少，独立完成，勿参考其他报告，避免雷同
+
+\subsection{发布地址}
+\begin{itemize}
+    \item Github: \url{https://github.com/langsunny/HFUT_Report_LaTeX_Template}
+\end{itemize}
+
+
+%%----------- 参考文献 -------------------%%
+%在reference.bib文件中填写参考文献，此处自动生成
+
+\reference
+
+
+\end{document}
