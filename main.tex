@@ -20,7 +20,7 @@
         \vspace{1cm}
         \heiti \Huge \textbf{《嵌入式系统及应用》课程} \par
         \vspace{1cm} 
-        \heiti \Large {\underline{综合实验报告}}    
+        \heiti \Large {\underline{综合实验报告}模板}    
         \vspace{3cm}
     }
 
@@ -48,6 +48,10 @@
 \begin{abstract}
 
 本实验通过理论与实践结合，使学生掌握STM32F103单片机的综合开发技能，理解嵌入式系统的核心设计理念，并为后续复杂项目（如物联网终端、工业控制器）的开发奠定坚实基础。
+
+在硬件调试（如ADC噪声抑制、PWM波形验证）和软件调试（如中断冲突、内存溢出）中，积累嵌入式系统调试经验，掌握逻辑分析仪、串口调试工具的使用方法。
+
+培养工程文档编写与团队协作意识。  通过撰写实验报告、记录测试用例、维护代码注释，规范技术文档编写习惯；通过差异化任务分工，理解团队协作在复杂项目中的重要性。
 
 \end{abstract}
 
@@ -77,17 +81,34 @@
 
 \item \textbf{培养嵌入式系统全流程开发能力}   - 从硬件连接（传感器、LED、按键）到软件编程（驱动开发、协议解析），完成完整的嵌入式系统设计流程，提升系统级工程思维。
 
-\item \textbf{学习多模块协同与实时任务管理}    - 实现"ADC采集、PWM输出、串口通信、中断响应"等任务的协同工作，掌握基于中断和定时器的实时系统设计方法。
+\item \textbf{学习多模块协同与系统调试技巧}    - 实现"ADC采集、PWM输出、串口通信、中断响应"等任务的协同工作和相关程序调试技巧。
 
-\item \textbf{提升调试与问题解决能力}    - 在硬件调试（如ADC噪声抑制、PWM波形验证）和软件调试（如中断冲突、内存溢出）中，积累嵌入式系统调试经验，掌握逻辑分析仪、串口调试工具的使用方法。
-
-\item \textbf{培养工程文档编写与团队协作意识}    - 通过撰写实验报告、记录测试用例、维护代码注释，规范技术文档编写习惯；通过差异化任务分工，理解团队协作在复杂项目中的重要性。
 
 \end{enumerate}
 
 \section{实验原理}
 
-需要整个系统的实验原理，画原理框图，流程图，各个模块的原理。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
+需要整个系统的实验原理，画硬件原理框图，流程图，各个模块的原理。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
+
+STM32 实验的原理主要围绕其硬件架构、软件开发工具及外设驱动机制展开。以下是详细的原理说明：
+
+\subsection{STM32 硬件架构基础}
+
+STM32f103 是基于ARM Cortex-M3的 32 位微控制器，核心特性包括：
+\begin{itemize}
+
+\item \textbf{内核}：负责指令执行、中断处理和内存访问。
+\item \textbf{存储器}：Flash（存储程序代码）和 SRAM（运行数据）。
+\item \textbf{外设}：GPIO、定时器（TIM）、ADC/DAC、USART、SPI、I2C、USB、CAN 等。
+\item \textbf{时钟系统}：通过 HSI（内部高速时钟）、HSE（外部高速时钟）、PLL（锁相环倍频）等配置系统时钟。
+\item \textbf{电源管理}：支持多种低功耗模式（Sleep/Stop/Standby）。
+
+\end{itemize}
+
+
+\subsection{实验开发工具}
+
+开发工具  调试工具等
 
 \begin{figure}[!htbp]
     \centering
@@ -99,38 +120,44 @@
 
 \section{实验内容}
 
-需要整个系统的实验原理，画原理框图，流程图，各个模块的原理。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
-\section{实验步骤}
-\subsection{步骤1：插入高亮代码块}
+写具体实验内容，通过画软件流程图，先分模块，后总结整体。可以参考实验指导书和查阅相关的资料，可以有更能说明问题的图表。原则上字数不少于500字。
+
+\subsection{ADC：模数转换}
 利用\verb|lstlisting| 配置
-\begin{lstlisting}[style=CPP, title="c++代码"]
-#include <iostream>
-#include <array>
-int main()
+
+\begin{lstlisting}[style=CPP, title="ADC关键代码"]
+u16 getConvValue(void)
 {
-    constexpr int MAX = 100;
-    std::array<int, MAX> arr;
-}  
+     ADC_RegularChannelConfig(ADC1, ADC_Channel_16, 1, ADC_SampleTime_55Cycles5);
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);         //开启软件转换，置位ADC_CR2的SWSTART位
+    while (!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC)); //等待转换完成
+    return ADC_GetConversionValue(ADC1);            //获取ADC转换结果
+}
 \end{lstlisting}
 
 
+\section{实验步骤}
+
+
 这部分需要详细填写实验步骤。可以参考实验指导书。原则上字数不少于500
-字。内容可写设计思路、设计过程，图文并茂为佳。
+字。
+\subsection{步骤1：将代码烧录到单片机}
+
+balabala.....
+
+\subsection{步骤2：上电观察led等}
+
+balabala.....
+
+\subsection{步骤3：改变温度}
+
+balabala.....
 
 
 
 
 
-直接使用\verb|\cite{}|即可\cite{DBLP:conf/nips/VaswaniSPUJGKP17}。
-\subsection{步骤2：文献引用}
-例如：
 
-
-   \textit{ 此处引用了文献}
-   \cite{DBLP:conf/nips/VaswaniSPUJGKP17}。此处引用了文献\cite{DBLP:conf/nips/VaswaniSPUJGKP17}
-
-
-引用过的文献会自动出现在参考文献中。
 
 \section{实验结果与分析}
  (自行填写。每个实验项目的格式范例：
@@ -154,7 +181,16 @@ int main()
 \begin{itemize}
     \item Github: \url{https://github.com/langsunny/HFUT_Report_LaTeX_Template}
 \end{itemize}
+直接使用\verb|\cite{}|即可\cite{DBLP:conf/nips/VaswaniSPUJGKP17}。
+\subsection{文献引用方法}
+例如：
 
+
+   \textit{ 此处引用了文献}
+   \cite{DBLP:conf/nips/VaswaniSPUJGKP17}。此处引用了文献\cite{DBLP:conf/nips/VaswaniSPUJGKP17}
+
+
+引用过的文献会自动出现在参考文献中。
 
 %%----------- 参考文献 -------------------%%
 %在reference.bib文件中填写参考文献，此处自动生成
